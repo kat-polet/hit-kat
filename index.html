@@ -48,12 +48,13 @@ body.timer-fullscreen #workoutView>.timer-card{display:block!important;border:0;
 body.timer-fullscreen #timerPanel{position:fixed;inset:0;z-index:99999;width:100vw;height:100vh;height:100dvh;max-width:none;min-height:0;border-radius:0;margin:0;padding:calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 18px) calc(env(safe-area-inset-bottom) + 12px) calc(env(safe-area-inset-left) + 18px);display:flex;flex-direction:column;justify-content:center;align-items:stretch;overflow:auto;}
 body.timer-fullscreen #timerPanel .clock{font-size:clamp(100px,23vw,190px);line-height:1;margin:0 0 12px;}
 body.timer-fullscreen #timerPanel .sub{font-size:clamp(27px,5vw,48px);min-height:0;max-width:95%;margin:0 auto 14px;}
-body.timer-fullscreen #timerPanel .exercise-visual{display:none!important}
+body.timer-fullscreen #timerPanel .exercise-visual{display:block!important;flex:0 1 auto;width:min(68vw,520px);max-width:520px;max-height:27vh;margin:0 auto 4px;overflow:visible}
+body.timer-fullscreen #timerPanel .exercise-visual .illustration-img{display:block;width:100%;height:clamp(90px,25vh,230px);max-height:27vh;object-fit:contain;padding:0}
 body.timer-fullscreen #timerPanel .progress{flex:none;width:100%;margin:12px 0 18px}
 body.timer-fullscreen #timerPanel .timer-actions{flex:none;gap:clamp(10px,2.5vw,22px);flex-wrap:nowrap}
 body.timer-fullscreen #timerPanel .timer-actions button{width:clamp(48px,8vh,68px);height:clamp(48px,8vh,68px);min-width:clamp(48px,8vh,68px);font-size:clamp(22px,4vh,30px)}
 body.timer-fullscreen #timerPanel .timer-actions svg{width:24px;height:24px}
-@media (orientation:landscape){body.timer-fullscreen #timerPanel{padding:8px 5vw}body.timer-fullscreen #timerPanel .clock{font-size:clamp(90px,29vh,190px);margin-bottom:5px}body.timer-fullscreen #timerPanel .sub{font-size:clamp(22px,5.5vh,40px);margin-bottom:5px}body.timer-fullscreen #timerPanel .progress{margin:6px 0 10px}body.timer-fullscreen #timerPanel .timer-actions button{width:clamp(44px,10vh,60px);height:clamp(44px,10vh,60px);min-width:clamp(44px,10vh,60px)}}
+@media (orientation:landscape){body.timer-fullscreen #timerPanel{padding:5px 5vw}body.timer-fullscreen #timerPanel .clock{font-size:clamp(90px,29vh,190px);margin-bottom:5px}body.timer-fullscreen #timerPanel .sub{font-size:clamp(22px,5.5vh,40px);margin-bottom:5px}body.timer-fullscreen #timerPanel .progress{margin:6px 0 10px}body.timer-fullscreen #timerPanel .timer-actions button{width:clamp(44px,10vh,60px);height:clamp(44px,10vh,60px);min-width:clamp(44px,10vh,60px)}}
 
 </style>
 </head>
@@ -90,27 +91,27 @@ body.timer-fullscreen #timerPanel .timer-actions svg{width:24px;height:24px}
     <div class="card"><h2>Рабочие веса</h2><p class="muted">Последний сохранённый вес для каждого упражнения. Сравнивай только одинаковые варианты упражнения и оборудования.</p><div id="weightsList"></div></div>
   </section>
   <div class="tabs"><button class="tab active" data-view="workoutView">Тренировка</button><button class="tab" data-view="historyView">История</button><button class="tab" data-view="progressView">Веса</button></div>
-  <div class="footer">Версия 3.3 · Офлайн после открытия в Safari. Не открывай в быстром предпросмотре приложения «Файлы» — там JavaScript может быть отключён. Данные сохраняются в Safari на этом устройстве; используй «Экспорт данных» для резервной копии.</div>
+  <div class="footer">Версия 3.5 · Офлайн после открытия в Safari. Не открывай в быстром предпросмотре приложения «Файлы» — там JavaScript может быть отключён. Данные сохраняются в Safari на этом устройстве; используй «Экспорт данных» для резервной копии.</div>
 </main>
 <script>
 const routines={
 mon:{title:"Понедельник — ягодицы и ноги",items:[
-["Ягодичный мост со штангой","Сила"],["Румынская тяга с гантелями","Сила"],["Болгарские выпады — левая нога","На сторону"],["Болгарские выпады — правая нога","На сторону"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Гоблет-присед","Сила"],["Шаги на платформу — левая нога","На сторону"],["Шаги на платформу — правая нога","На сторону"],["Румынская тяга на одной ноге с гантелью","Задняя поверхность бедра"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога","На сторону"],["Подъёмы на носки","Сила"],["Ягодичный мост с паузой","Контроль"],["Планка","Кор"],["Dead bug","Кор"]]},
+["Ягодичный мост со штангой","Сила"],["Румынская тяга с гантелями","Сила"],["Болгарские выпады — левая нога","На сторону"],["Болгарские выпады — правая нога","На сторону"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Гоблет-присед","Сила"],["Зашагивания на скамейку — левая нога","На сторону"],["Зашагивания на скамейку — правая нога","На сторону"],["Румынская тяга на одной ноге с гантелью","Задняя поверхность бедра"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога","На сторону"],["Подъёмы на носки","Сила"],["Ягодичный мост с паузой","Контроль"],["Планка","Кор"],["Dead bug","Кор"]]},
 wed:{title:"Среда — всё тело и плечи",items:[
 ["Жим гантелей над головой","Плечи"],["Подъёмы гантелей в стороны","Дельты"],["Тяга гантелей в наклоне","Спина"],["Отжимания от опоры / пола","Сила"],["Присед с гантелью","Ноги"],["Румынская тяга с гантелями","Сила"],["Обратные выпады — левая нога","На сторону"],["Обратные выпады — правая нога","На сторону"],["Разведение гантелей в наклоне","Задняя дельта"],["Пуловер с гантелью лёжа на скамейке","Спина"],["Жим гантелей лёжа","Грудь"],["Pallof press — левая сторона","На сторону"],["Pallof press — правая сторона","На сторону"],["Bird dog","Кор"],["Фермерская прогулка","Функциональное"]]},
 fri:{title:"Пятница — ягодицы и ноги",items:[
-["Тяга трап-грифа / классическая","Сила"],["Ягодичный мост со штангой","Сила"],["Обратные выпады — левая нога","На сторону"],["Обратные выпады — правая нога","На сторону"],["Жим ногами","Сила"],["Румынская тяга на одной ноге с гантелью","Задняя поверхность бедра"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога","На сторону"],["Шаги на платформу — левая нога","На сторону"],["Шаги на платформу — правая нога","На сторону"],["Подъёмы на носки","Сила"],["Frog pumps","Ягодицы"],["Боковая планка — левая","На сторону"],["Боковая планка — правая","На сторону"]]},
+["Тяга трап-грифа / классическая","Сила"],["Ягодичный мост со штангой","Сила"],["Обратные выпады — левая нога","На сторону"],["Обратные выпады — правая нога","На сторону"],["Жим ногами","Сила"],["Румынская тяга на одной ноге с гантелью","Задняя поверхность бедра"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога","На сторону"],["Зашагивания на скамейку — левая нога","На сторону"],["Зашагивания на скамейку — правая нога","На сторону"],["Подъёмы на носки","Сила"],["Frog pumps","Ягодицы"],["Боковая планка — левая","На сторону"],["Боковая планка — правая","На сторону"]]},
 beach:{title:"Дополнительно — пляж без оборудования",items:[
 ["Приседания с собственным весом","Ноги"],["Обратные выпады попеременно","Ноги и ягодицы"],["Отжимания от пола или с колен","Грудь и руки"],["Ягодичный мост на коврике","Ягодицы"],["Подъём ноги лёжа на боку — левая","На сторону"],["Подъём ноги лёжа на боку — правая","На сторону"],["Bird dog","Кор и спина"],["Планка на предплечьях","Кор"]]},
 park:{title:"Дополнительно — детская площадка",items:[
 ["Зашагивания на низкую устойчивую ступень — левая","На сторону"],["Зашагивания на низкую устойчивую ступень — правая","На сторону"],["Зашагивания на ступень боком — левая","На сторону"],["Зашагивания на ступень боком — правая","На сторону"],["Отжимания от скамейки","Грудь и руки"],["Приседания с собственным весом","Ноги"],["Выпады вперёд попеременно","Ноги и ягодицы"],["Выпады назад попеременно","Ноги и ягодицы"],["Касания пола в 4 направлениях с бордюра — опорная левая","Баланс и контроль колена"],["Касания пола в 4 направлениях с бордюра — опорная правая","Баланс и контроль колена"],["Подведение прямой ноги к руке через сторону в планке — ноги на скамейке","Кор и плечевой пояс"],["Планка с руками на скамейке","Кор"]]}
 };
 const KEY="myFitnessOffline_v1";
-const APP_VERSION="3.3";
+const APP_VERSION="3.6";
 let db=loadDB(),day="mon",view="workoutView",timer=null,remaining=120,running=false,phase="warmup",idx=0,round=1,sessionStarted=false,nextAt=0,storageOK=true;
 db.lightWeights=db.lightWeights||{};
 const starterWeights={
-"Ягодичный мост со штангой":45,"Румынская тяга с гантелями":15,"Болгарские выпады — левая нога":10,"Болгарские выпады — правая нога":10,"Отведение ноги в сторону с утяжелителем — левая":2,"Отведение ноги в сторону с утяжелителем — правая":2,"Гоблет-присед":15,"Шаги на платформу — левая нога":10,"Шаги на платформу — правая нога":10,"Румынская тяга на одной ноге с гантелью":10,"Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога":"резинка","Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога":"резинка","Подъёмы на носки":15,
+"Ягодичный мост со штангой":45,"Румынская тяга с гантелями":15,"Болгарские выпады — левая нога":10,"Болгарские выпады — правая нога":10,"Отведение ноги в сторону с утяжелителем — левая":2,"Отведение ноги в сторону с утяжелителем — правая":2,"Гоблет-присед":15,"Зашагивания на скамейку — левая нога":10,"Зашагивания на скамейку — правая нога":10,"Румынская тяга на одной ноге с гантелью":10,"Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — левая нога":"резинка","Раскрытие ракушки лёжа на боку с резинкой (Clamshell) — правая нога":"резинка","Подъёмы на носки":15,
 "Жим гантелей над головой":8,"Подъёмы гантелей в стороны":5,"Тяга гантелей в наклоне":12,"Присед с гантелью":15,"Обратные выпады — левая нога":10,"Обратные выпады — правая нога":10,"Разведение гантелей в наклоне":5,"Пуловер с гантелью лёжа на скамейке":10,"Жим гантелей лёжа":10,"Pallof press — левая сторона":5,"Pallof press — правая сторона":5,"Фермерская прогулка":15,"Тяга трап-грифа / классическая":65,"Жим ногами":45
 };
 function lighterWeight(weight){const n=Number(weight);if(!Number.isFinite(n)||n<=0)return "";if(n<=2)return "2";return String(Math.max(5,Math.round((n*0.65)/5)*5));}
@@ -180,51 +181,93 @@ const ILLUSTRATION_DATA = {
   "side-plank-right.jpg": "illustrations/side-plank-right.jpg",
   "squat-band.jpg": "illustrations/squat-band.jpg"
 };
-function visualForExercise(name, phaseNow){
- const box=document.getElementById("exerciseVisual"); if(!box)return;
- const n=(name||"").toLowerCase();
- if(!n){box.className="exercise-visual hidden";box.innerHTML="";return;}
- let file=null;
- // Reuse one illustration for left/right variations; make sure every routine exercise displays an image.
- if(/clamshell|ракушк/.test(n)) file="clamshell-left.jpg";
- else if(/ягодичн.*мост|мост ягодиц|glute bridge|frog pump/.test(n)) file="glute-bridge.jpg";
- else if(/боковая планка|side plank/.test(n)) file="side-plank-left.jpg";
- else if(/планк|планка|bird dog|bird-dog|подведение прямой ноги к руке/.test(n)) file="plank.jpg";
- else if(/румынск.*тяг|romanian deadlift|rdl|трап-гриф|классическ.*тяг|тяга трап/.test(n)) file="romanian-deadlift.jpg";
- else if(/тяга гантелей в наклоне|тяга.*гантел.*наклоне|dumbbell row|фермерск.*прогул/.test(n)) file="dumbbell-row.jpg";
- else if(/жим гантелей лёжа|жим гантелей лежа|жим гантелей над головой|жим ногами|отжиман|dumbbell bench press|push-up|push up/.test(n)) file="dumbbell-bench-press.jpg";
- else if(/скручиван|crunch|касани.*пола|подъём ноги лёжа на боку|подъем ноги лежа на боку|подъём ног лёжа|подъем ног лежа|lying leg raise/.test(n)) file="lying-leg-raise.jpg";
- else if(/отведение ноги|kickback|махи ногой назад/.test(n)) file="glute-kickback-left.jpg";
- else if(/обратн.*выпад|выпад.*назад|reverse lunge/.test(n)) file="reverse-lunge-left.jpg";
- else if(/выпад.*впер[её]д|выпады попеременно/.test(n)) file="reverse-lunge-left.jpg";
- else if(/присед|squat/.test(n)) file=/резинк|band/.test(n)?"squat-band.jpg":"reverse-lunge-left.jpg";
- else if(/разведени.*рук.*гантел|подъ[её]м.*гантелей в стороны|разведени.*гантелей в наклоне|lateral raise/.test(n)) file="lateral-raise.jpg";
- else if(/пуловер|сгибание ног|hamstring curl/.test(n)) file="dumbbell-bench-press.jpg";
- else if(/шаги на платформу|зашагиван|подъ[её]м.*ступень|step-up|step up|подъ[её]мы на носки/.test(n)) file="reverse-lunge-left.jpg";
- else if(/pallof press|жим.*перед собой/.test(n)) file="dumbbell-row.jpg";
- else file="plank.jpg";
- const alt=name.replace(/[<>&"']/g,' ');
- box.className="exercise-visual";
- box.innerHTML=`<img class="illustration-img" src="${EMBEDDED_ILLUSTRATIONS[file]||EMBEDDED_ILLUSTRATIONS["plank.jpg"]}" alt="${alt}" loading="eager">`;
+function exerciseSvg(kind,label){
+ const bg='<svg class="illustration-img" width="480" height="280" viewBox="0 0 480 280" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="464" height="264" rx="24" fill="#F5F2EF"/><path d="M34 235H446" stroke="#D8D0C8" stroke-width="4" stroke-linecap="round"/>';
+ const person='#425B68',pink='#D8A1B3',bench='#D7C5B7',wood='#9E8979';
+ const head=(x,y)=>`<circle cx="${x}" cy="${y}" r="17" fill="${pink}"/>`;
+ const line=(d,w=15)=>`<path d="${d}" stroke="${person}" stroke-width="${w}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+ const dumb=(x,y)=>`<g fill="${pink}"><rect x="${x-16}" y="${y-5}" width="32" height="10" rx="3"/><rect x="${x-20}" y="${y-10}" width="7" height="20" rx="2"/><rect x="${x+13}" y="${y-10}" width="7" height="20" rx="2"/></g>`;
+ const step=`<rect x="265" y="170" width="145" height="62" rx="6" fill="${bench}"/><path d="M275 170V232M400 170V232" stroke="${wood}" stroke-width="6"/>`;
+ let p='';
+ switch(kind){
+ case 'warmup': p=`<circle cx="240" cy="50" r="17" fill="${pink}"/>${line('M240 70L240 142 M240 91L194 111L172 88 M240 91L286 111L309 88 M240 142L211 185L204 228 M240 142L270 185L279 228',15)}<path d="M142 78Q125 108 143 132M338 78Q355 108 337 132" stroke="${pink}" stroke-width="5" fill="none" stroke-linecap="round"/>`;break;
+ case 'stepup': p=step+head(190,57)+line('M190 77L198 130 M196 96L165 120 M196 96L225 119 M198 130L235 160L294 160 M198 130L170 177L160 226',16)+`<path d="M292 160H307" stroke="${person}" stroke-width="12" stroke-linecap="round"/>`;break;
+ case 'sideStep': p=step+head(178,60)+line('M178 80L193 132 M188 99L154 116 M188 99L221 117 M193 132L244 157L295 157 M193 132L165 179L151 226',16);break;
+ case 'inclinePushup': p=`<rect x="286" y="126" width="126" height="18" rx="5" fill="${bench}"/><path d="M302 144V231M397 144V231" stroke="${wood}" stroke-width="7"/>${head(102,123)}${line('M119 129L192 147L270 156 M192 147L225 191L266 226 M270 156L305 143 M305 143L304 129 M119 129L103 155',15)}`;break;
+ case 'squat': p=head(240,52)+line('M240 72L240 137 M240 91L204 116L184 126 M240 91L276 116L296 126 M240 137L204 167L190 208 M240 137L276 167L290 208',16)+dumb(184,126)+dumb(296,126);break;
+ case 'goblet': p=head(240,52)+line('M240 72L240 137 M240 91L210 114L230 129 M240 91L270 114L250 129 M240 137L204 171L190 210 M240 137L276 171L290 210',16)+`<rect x="225" y="113" width="30" height="27" rx="5" fill="${pink}"/>`;break;
+ case 'pullover': p=`<rect x="95" y="153" width="290" height="23" rx="7" fill="${bench}"/><path d="M120 176V230M360 176V230" stroke="${wood}" stroke-width="8"/>${head(142,137)}${line('M160 142L220 157L278 158 M278 158L307 122L333 92 M278 158L309 177L341 198',14)}${dumb(340,85)}`;break;
+ case 'pallof': p=`<path d="M54 115H122" stroke="${pink}" stroke-width="6"/><circle cx="54" cy="115" r="8" fill="${pink}"/><path d="M122 115L174 128" stroke="${pink}" stroke-width="4" stroke-dasharray="6 6"/>${head(220,59)}${line('M220 79L220 145 M220 99L197 121L177 121 M220 99L259 119L297 119 M220 145L192 185L186 228 M220 145L251 185L258 228',15)}${line('M297 119H316',10)}`;break;
+ case 'birdDog': p=`${head(112,124)}${line('M129 137L240 145 M145 145L175 181L159 228 M175 181L224 181L236 228 M142 142L105 105L72 105 M240 145L289 109L340 109',15)}<path d="M72 105H54M340 109H365" stroke="${person}" stroke-width="11" stroke-linecap="round"/>`;break;
+ case 'farmer': p=head(240,51)+line('M240 71L240 140 M240 92L210 126L205 159 M240 92L270 126L275 159 M240 140L212 181L202 228 M240 140L268 181L278 228',15)+`<path d="M198 157V182M282 157V182" stroke="${person}" stroke-width="8"/>${dumb(198,196)}${dumb(282,196)}`;break;
+ case 'hipBridge': p=`<rect x="70" y="187" width="340" height="17" rx="6" fill="${bench}"/>${head(122,171)}${line('M139 176L202 177L264 149L319 177 M202 177L181 203L162 228 M319 177L342 203L358 228',16)}<rect x="225" y="143" width="65" height="12" rx="5" fill="${pink}"/>`;break;
+ case 'rdl': p=head(240,48)+line('M240 68L225 137L193 166 M225 137L268 161L304 185 M225 137L190 178L179 226 M268 161L282 194L293 226',16)+dumb(190,169)+dumb(304,185);break;
+ case 'lunge': p=head(240,47)+line('M240 67L240 126 M240 89L207 112L192 130 M240 89L273 112L288 130 M240 126L202 159L178 221 M240 126L280 157L303 221',16);break;
+ case 'clamshell': p=`<path d="M70 216H410" stroke="${bench}" stroke-width="22" stroke-linecap="round"/>${head(124,171)}${line('M140 179L214 194L285 202 M214 194L260 218L310 218 M214 194L252 171L299 167',15)}<path d="M250 173Q286 135 316 164" fill="none" stroke="${pink}" stroke-width="6" stroke-linecap="round"/><path d="M300 153L316 164L302 174" fill="none" stroke="${pink}" stroke-width="5"/>`;break;
+ case 'calf': p=head(240,50)+line('M240 70L240 139 M240 92L210 120L195 135 M240 92L270 120L285 135 M240 139L219 181L217 217 M240 139L260 181L263 217',16)+`<path d="M198 226H235M245 226H282" stroke="${person}" stroke-width="8" stroke-linecap="round"/><path d="M205 216L217 201L229 216M251 216L263 201L275 216" stroke="${pink}" stroke-width="5" fill="none"/>`;break;
+ case 'plank': p=`${head(105,145)}${line('M122 150L220 167L333 170 M220 167L194 204L181 228 M333 170L356 202L366 228 M155 154L133 190L119 228',16)}`;break;
+ case 'deadbug': p=`<path d="M65 205H415" stroke="${bench}" stroke-width="17" stroke-linecap="round"/>${head(130,185)}${line('M147 188L222 190 M222 190L260 153L292 130 M222 190L263 220L304 220 M166 188L190 151L208 132 M190 151L166 132',15)}`;break;
+ case 'press': p=head(240,49)+line('M240 70L240 140 M240 92L204 72L204 48 M240 92L276 72L276 48 M240 140L214 183L205 228 M240 140L266 183L275 228',16)+dumb(204,42)+dumb(276,42);break;
+ case 'lateralRaise': p=head(240,49)+line('M240 70L240 140 M240 92L189 105L164 105 M240 92L291 105L316 105 M240 140L214 183L205 228 M240 140L266 183L275 228',16)+dumb(155,105)+dumb(325,105);break;
+ case 'row': p=head(206,67)+line('M222 85L255 140L294 174 M244 123L209 151L190 168 M244 123L277 147L298 163 M294 174L282 211L279 228 M294 174L331 198L350 228',16)+dumb(187,172)+dumb(304,166);break;
+ case 'benchPress': p=`<rect x="90" y="165" width="300" height="20" rx="6" fill="${bench}"/><path d="M112 185V229M368 185V229" stroke="${wood}" stroke-width="8"/>${head(144,151)}${line('M161 154L232 166L293 166 M230 166L220 122 M293 166L305 122',15)}<path d="M194 113H330" stroke="${person}" stroke-width="7"/>${dumb(220,113)}${dumb(305,113)}`;break;
+ case 'rearFly': p=head(220,65)+line('M236 84L250 143L283 168 M246 112L196 133L166 149 M246 112L294 133L324 149 M250 143L215 183L202 228 M250 143L286 183L300 228',15)+dumb(157,153)+dumb(333,153);break;
+ case 'sideLeg': p=`<path d="M65 222H410" stroke="${bench}" stroke-width="17" stroke-linecap="round"/>${head(110,177)}${line('M126 183L190 205L251 218 M190 205L226 226 M190 205L255 173L322 155',15)}`;break;
+ case 'sidePlank': p=`${head(108,162)}${line('M125 168L228 187L339 201 M228 187L190 217 M339 201L373 228 M150 174L124 204L105 228',16)}`;break;
+ case 'pushup': p=`${head(98,154)}${line('M115 160L215 175L326 176 M215 175L254 205L280 228 M326 176L358 203L370 228 M151 165L132 197L117 228',16)}`;break;
+ case 'sideAbduction': p=`<path d="M55 222H420" stroke="${bench}" stroke-width="17" stroke-linecap="round"/>${head(112,176)}${line('M129 183L202 200L267 215 M202 200L247 225 M202 200L260 169L328 146',15)}<path d="M306 139L328 146L314 163" stroke="${pink}" stroke-width="5" fill="none"/>`;break;
+ case 'curbTap': p=step+head(205,51)+line('M205 71L205 135 M205 90L174 115L160 130 M205 90L237 115L253 132 M205 135L181 176L171 225 M205 135L244 161L291 161',16)+`<path d="M292 160L327 132" stroke="${pink}" stroke-width="5" stroke-dasharray="6 5"/>`;break;
+ default: p=head(240,50)+line('M240 70L240 140 M240 92L210 120L195 135 M240 92L270 120L285 135 M240 140L214 183L205 228 M240 140L266 183L275 228',16);
+ }
+ const safe=(label||'Упражнение').replace(/[<>&"']/g,' ');
+ return bg+p+`<rect x="18" y="18" width="0" height="0"/><text x="240" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="600" fill="#425B68">${safe}</text></svg>`;
 }
-
+function visualForExercise(name, phaseNow){
+ const box=document.getElementById('exerciseVisual'); if(!box)return;
+ const n=(name||'').toLowerCase().replace(/ё/g,'е').trim();
+ // Show an image only when we have an existing illustration for this specific movement.
+ // Never substitute a vaguely similar exercise. Missing match => no image.
+ const matches=[
+  [/ракушк|clamshell/,'clamshell-left.jpg'],
+  [/скручиван|crunch/,'crunch.jpg'],
+  [/жим гантелей лежа|жим гантелей на скамье|dumbbell bench press/,'dumbbell-bench-press.jpg'],
+  [/тяга гантелей в наклоне|тяга гантели в наклоне|dumbbell row/,'dumbbell-row.jpg'],
+  [/ягодичн.*мост|мост ягодиц|glute bridge/,'glute-bridge.jpg'],
+  [/отведение ноги назад.*резин|ягодичн.*кикбэк|glute kickback/,'glute-kickback-left.jpg'],
+  [/подъем гантелей в стороны|подьем гантелей в стороны|lateral raise/,'lateral-raise.jpg'],
+  [/подъем ног лежа|подьем ног лежа|lying leg raise/,'lying-leg-raise.jpg'],
+  [/планка(?!.*бок)|plank(?!.*side)/,'plank.jpg'],
+  [/обратн.*выпад|выпад назад|reverse lunge/,'reverse-lunge-left.jpg'],
+  [/румынск.*тяг|romanian deadlift/,'romanian-deadlift.jpg'],
+  [/боковая планка|планка боком|side plank/,'side-plank-left.jpg'],
+  [/присед.*резин|squat with band|band squat/,'squat-band.jpg']
+ ];
+ const match=matches.find(([re])=>re.test(n));
+ const src=match?EMBEDDED_ILLUSTRATIONS[match[1]]:null;
+ if(!src){box.className='exercise-visual hidden';box.innerHTML='';return;}
+ box.className='exercise-visual';
+ const img=document.createElement('img');
+ img.className='illustration-img';img.src=src;img.alt=name||'Иллюстрация упражнения';img.loading='eager';img.decoding='async';
+ img.onerror=()=>{box.className='exercise-visual hidden';box.innerHTML='';};
+ box.replaceChildren(img);
+}
 function updateTimer(){
  const slots=getSlots();
  document.getElementById("clock").textContent=fmt(Math.max(0,remaining));
  const exerciseEl=document.getElementById("timerExercise"),panel=document.getElementById("timerPanel");
  panel.classList.toggle('resting',phase==='rest');panel.classList.toggle('paused',phase==='paused');
- if(phase==='warmup') exerciseEl.textContent=slots[0]?.[0]||"Готовься";
+ if(phase==='warmup') exerciseEl.textContent='Разминка';
  else if(phase==='work') exerciseEl.textContent=slots[idx]?.[0]||"Готово!";
  else if(phase==='rest') {const nextIdx=idx+1<slots.length?idx+1:0;exerciseEl.textContent=(idx+1>=slots.length&&round>=Number(document.getElementById('rounds').value))?"Финиш!":(slots[nextIdx]?.[0]||"Отдых");}
  else if(phase==='done') exerciseEl.textContent="ГОТОВО!";
  else if(phase==='paused') exerciseEl.textContent=slots[idx]?.[0]||"Пауза";
  const duration=Math.max(1,durationForPhase());document.getElementById("progressBar").style.width=`${phase==="done"?100:Math.min(100,Math.max(0,100*(1-remaining/duration)))}%`;
- const shown=(phase==='work')?slots[idx]?.[0]:(phase==='rest'?(slots[idx+1]?.[0]||slots[0]?.[0]):(phase==='warmup'?slots[0]?.[0]:slots[idx]?.[0]));visualForExercise(shown||"",phase);
+ const shown=(phase==='work')?slots[idx]?.[0]:(phase==='rest'?(slots[idx+1]?.[0]||slots[0]?.[0]):(phase==='warmup'?'Разминка':slots[idx]?.[0]));visualForExercise(shown||"",phase);
 }
 function advancePhase(){
  lastCountdownBeep=null;
  const slots=getSlots(),totalRounds=Number(document.getElementById("rounds").value)||2;
- if(phase==="warmup"){phase="work";idx=0;round=1;remaining=durationForPhase();beep(880,.15)}
+ if(phase==="warmup"){phase="rest";idx=-1;round=1;remaining=Number(document.getElementById("restSeconds").value)||15;beep(660,.12)}
  else if(phase==="work"){phase="rest";remaining=durationForPhase();beep(660,.12)}
  else if(phase==="rest"){
    idx++;
