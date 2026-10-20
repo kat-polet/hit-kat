@@ -20,9 +20,8 @@ h2{font-size:18px;margin:0 0 10px}h3{font-size:15px;margin:0 0 5px}.muted{color:
 button,select,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 14px;background:var(--accent);color:white;font-weight:650}button.secondary{background:#E7A8BD;color:#394B58}button.ghost{background:#DCE8EF;color:#394B58}button.danger{background:#F2DDD7;color:#8F4338}button:disabled{opacity:.4}
 input,select,textarea{width:100%;border:1px solid #dce5ee;background:#fff;border-radius:10px;padding:10px;color:var(--ink);min-width:0}label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.field{flex:1;min-width:0}.exercise{padding:13px 0;border-top:1px solid var(--line)}.exercise:first-of-type{border-top:0}.exercise-name{font-weight:650;font-size:15px}.tag{font-size:11px;color:#8F4338;background:#F2DDD7;padding:4px 7px;border-radius:20px;white-space:nowrap}.inputs{display:grid;grid-template-columns:minmax(120px,220px);gap:8px;margin-top:10px}.inputs label{font-size:11px}.timer{text-align:center;background:linear-gradient(145deg,#AFCBE1,#E7A8BD);color:#394B58;border-radius:20px;padding:22px 16px}.timer .phase{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#394B58}.clock{font-size:66px;font-weight:750;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:5px 0}.timer .sub{color:#394B58;font-size:13px;margin-bottom:15px}
 .exercise-visual{display:block;width:100%;max-width:360px;margin:14px auto 16px;background:#FFF9FB;border:1px solid #EBCAD8;border-radius:16px;overflow:hidden;box-shadow:0 3px 12px #394B5810;position:relative}
-.exercise-visual .illustration-img{display:block;width:100%;height:185px;object-fit:contain;background:#FFF9FB;padding:4px;box-sizing:border-box}
-.exercise-visual .visual-hint{font-size:12px;line-height:1.4;font-weight:650;color:#394B58;text-align:center;padding:9px 12px 12px;border-top:1px solid #F2DCE5;background:#FFFBFC}
-@media(min-width:620px){.exercise-visual{max-width:400px}.exercise-visual .illustration-img{height:205px}}
+.exercise-visual .illustration-img{display:block;width:100%;height:clamp(190px,48vw,300px);object-fit:contain;object-position:center;background:#FFF9FB;padding:12px;box-sizing:border-box}
+@media(min-width:620px){.exercise-visual{max-width:420px}.exercise-visual .illustration-img{height:300px}}
 
 .timer-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.timer-actions button{min-width:90px}.progress{height:5px;background:#ffffffb8;border-radius:8px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;width:0;background:#B85A4C;transition:width .2s}.notice{background:var(--warn);padding:11px 12px;border-radius:12px;font-size:13px;line-height:1.4}.history-item{padding:12px 0;border-top:1px solid var(--line)}.history-item:first-child{border-top:0}.hidden{display:none!important}.smallbtn{padding:8px 10px;font-size:12px}.footer{text-align:center;color:var(--muted);font-size:11px;padding:10px 8px 20px}
 #dayTabs{flex-wrap:wrap}#dayTabs .tab{flex:1 1 28%;min-width:0;font-size:13px}@media(min-width:620px){#dayTabs .tab{flex:1}.two{display:grid;grid-template-columns:1fr 1fr;gap:13px}.two .card{margin-bottom:0}.clock{font-size:76px}}
@@ -134,43 +133,26 @@ const ILLUSTRATION_DATA = {
 function visualForExercise(name, phaseNow){
  const box=document.getElementById("exerciseVisual"); if(!box)return;
  const n=(name||"").toLowerCase();
- if(!n){box.className="exercise-visual";box.innerHTML='<div class="visual-hint">Иллюстрация упражнения появится здесь</div>';return;}
- let file="squat-band.jpg", caption="Двигайся плавно и контролируй положение тела";
- if(/clamshell|ракушк/.test(n)){
-   file=/правая|right/.test(n)?"clamshell-right.jpg":"clamshell-left.jpg";
-   caption="Таз неподвижен · раскрывай колено, не разворачивай корпус";
- } else if(/мост|bridge|frog pump/.test(n)){
-   file="glute-bridge.jpg"; caption="Поднимай таз за счёт ягодиц · не прогибай поясницу";
- } else if(/боковая планка|side plank/.test(n)){
-   file=/правая|right/.test(n)?"side-plank-right.jpg":"side-plank-left.jpg"; caption="Тело в одну линию · не опускай таз";
- } else if(/румын|трап-гриф|классическ.*тяга|deadlift|становая|наклон/.test(n)){
-   file="romanian-deadlift.jpg"; caption="Отводи таз назад · спина ровная · колени мягкие";
- } else if(/тяга гантелей в наклоне|row|греб|тяга.*наклоне/.test(n)){
-   file="dumbbell-row.jpg"; caption="Наклони корпус с ровной спиной · тяни локти назад";
- } else if(/жим гантелей лёжа|жим гантелей лежа|bench press/.test(n)){
-   file="dumbbell-bench-press.jpg"; caption="Опускай гантели под контролем · не прогибай поясницу";
- } else if(/отжиман|планк|bird dog|bird-dog|упор лёжа|упор лежа/.test(n)){
-   file="plank.jpg"; caption="Сохраняй корпус ровным · не провисай в пояснице";
- } else if(/dead bug|подъём ноги лёжа|подъем ноги лежа|скручиван|crunch/.test(n)){
-   file=/скручиван|crunch/.test(n)?"crunch.jpg":"lying-leg-raise.jpg"; caption="Двигайся медленно · поясница остаётся под контролем";
- } else if(/подъём ноги лёжа на боку|подъем ноги лежа на боку|отведение ноги в сторону/.test(n)){
-   file=/правая|right/.test(n)?"clamshell-right.jpg":"clamshell-left.jpg"; caption="Поднимай верхнюю ногу без разворота таза";
- } else if(/отведени.*ног|kickback|махи ногой|bird dog/.test(n)){
-   file=/правая|right/.test(n)?"glute-kickback-right.jpg":"glute-kickback-left.jpg"; caption="Не разворачивай таз · не прогибай поясницу";
- } else if(/выпад|болгар|шаги на платформ|зашагив|касани|step up|lunge/.test(n)){
-   file=/правая|right/.test(n)?"reverse-lunge-right.jpg":"reverse-lunge-left.jpg"; caption="Держи корпус устойчиво · колено направлено по линии носка";
- } else if(/жим гантелей над головой|плеч|разведени.*гантел|подъём гантелей в стороны|подъем гантелей в стороны|shoulder/.test(n)){
-   file="lateral-raise.jpg"; caption="Поднимай руки контролируемо · плечи не подтягивай к ушам";
- } else if(/присед|squat|жим ногами/.test(n)){
-   file="squat-band.jpg"; caption="Колени следуют за носками · опускайся под контролем";
- } else if(/сгибание ног/.test(n)){
-   file="glute-bridge.jpg"; caption="Двигай голенью без рывка · не раскачивай корпус";
- } else if(/подъём.*нос|подъем.*нос|фермер|farmer|pallof/.test(n)){
-   file="lateral-raise.jpg"; caption="Держи корпус устойчиво и двигайся без рывков";
- }
+ if(!n){box.className="exercise-visual hidden";box.innerHTML="";return;}
+ let file=null;
+ // Only show an illustration when it closely matches the exercise. Never substitute a merely similar movement.
+ if(/clamshell|ракушк/.test(n)) file=/правая|right/.test(n)?"clamshell-right.jpg":"clamshell-left.jpg";
+ else if(/ягодичн.*мост|мост ягодиц|glute bridge|frog pump/.test(n)) file="glute-bridge.jpg";
+ else if(/боковая планка|side plank/.test(n)) file=/правая|right/.test(n)?"side-plank-right.jpg":"side-plank-left.jpg";
+ else if(/румынск.*тяг|romanian deadlift|rdl/.test(n)) file="romanian-deadlift.jpg";
+ else if(/тяга гантелей в наклоне|тяга.*гантел.*наклоне|dumbbell row/.test(n)) file="dumbbell-row.jpg";
+ else if(/жим гантелей лёжа|жим гантелей лежа|dumbbell bench press/.test(n)) file="dumbbell-bench-press.jpg";
+ else if(/^планка$|^планка классическ|front plank|^plank$/.test(n)) file="plank.jpg";
+ else if(/скручиван|crunch/.test(n)) file="crunch.jpg";
+ else if(/подъём ног лёжа|подъем ног лежа|lying leg raise/.test(n)) file="lying-leg-raise.jpg";
+ else if(/отведение ноги назад|махи ногой назад|kickback/.test(n)) file=/правая|right/.test(n)?"glute-kickback-right.jpg":"glute-kickback-left.jpg";
+ else if(/обратн.*выпад|reverse lunge/.test(n)) file=/правая|right/.test(n)?"reverse-lunge-right.jpg":"reverse-lunge-left.jpg";
+ else if(/присед.*резинк|squat.*band/.test(n)) file="squat-band.jpg";
+ else if(/разведени.*рук.*гантел|подъём гантелей в стороны|подъем гантелей в стороны|lateral raise/.test(n)) file="lateral-raise.jpg";
+ if(!file){box.className="exercise-visual hidden";box.innerHTML="";return;}
  const alt=name.replace(/[<>&"']/g,' ');
  box.className="exercise-visual";
- box.innerHTML=`<img class="illustration-img" src="${ILLUSTRATION_DATA[file]||''}" alt="Иллюстрация упражнения: ${alt}" loading="eager"><div class="visual-hint">${caption}</div>`;
+ box.innerHTML=`<img class="illustration-img" src="${ILLUSTRATION_DATA[file]}" alt="${alt}" loading="eager">`;
 }
 function updateTimer(){
  const slots=getSlots(),totalRounds=Number(document.getElementById("rounds").value)||2;
