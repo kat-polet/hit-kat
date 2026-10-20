@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#AFCBE1">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>HIT KAT — Strength for Life</title>
+<style>
+:root{--bg:#F8F5F1;--card:#fff;--ink:#394B58;--muted:#6F7D86;--accent:#B85A4C;--accent2:#E7A8BD;--line:#E4DDD5;--warn:#E8D5C1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{background:linear-gradient(135deg,#AFCBE1 0%,#E7A8BD 100%);color:#394B58;padding:20px 18px 18px;border-radius:0 0 24px 24px}
+header small{color:#394B58;letter-spacing:.12em;text-transform:uppercase;font-size:11px;font-weight:750}h1{font-size:26px;margin:7px 0 5px}header p{margin:0;color:#617184;font-size:14px}
+main{max-width:760px;margin:auto;padding:16px 14px 34px}.tabs{display:flex;gap:7px;margin:0 0 16px}.tab{flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 4px;background:#fff;color:var(--ink);font-weight:650}.tab.active{background:#E7A8BD;border-color:#D78EA8;color:#394B58}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:13px;box-shadow:0 2px 10px #17221d08}
+h2{font-size:18px;margin:0 0 10px}h3{font-size:15px;margin:0 0 5px}.muted{color:var(--muted);font-size:13px;line-height:1.45}.row{display:flex;align-items:center;gap:9px}.between{justify-content:space-between}.grow{flex:1;min-width:0}
+button,select,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 14px;background:var(--accent);color:white;font-weight:650}button.secondary{background:#E7A8BD;color:#394B58}button.ghost{background:#DCE8EF;color:#394B58}button.danger{background:#F2DDD7;color:#8F4338}button:disabled{opacity:.4}
+input,select,textarea{width:100%;border:1px solid #dce5ee;background:#fff;border-radius:10px;padding:10px;color:var(--ink);min-width:0}label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.field{flex:1;min-width:0}.exercise{padding:13px 0;border-top:1px solid var(--line)}.exercise:first-of-type{border-top:0}.exercise-name{font-weight:650;font-size:15px}.tag{font-size:11px;color:#8F4338;background:#F2DDD7;padding:4px 7px;border-radius:20px;white-space:nowrap}.inputs{display:grid;grid-template-columns:minmax(120px,220px);gap:8px;margin-top:10px}.inputs label{font-size:11px}.timer{text-align:center;background:linear-gradient(145deg,#AFCBE1,#E7A8BD);color:#394B58;border-radius:20px;padding:22px 16px}.timer .phase{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#394B58}.clock{font-size:66px;font-weight:750;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:5px 0}.timer .sub{color:#394B58;font-size:13px;margin-bottom:15px}.timer-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.timer-actions button{min-width:90px}.progress{height:5px;background:#ffffffb8;border-radius:8px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;width:0;background:#B85A4C;transition:width .2s}.notice{background:var(--warn);padding:11px 12px;border-radius:12px;font-size:13px;line-height:1.4}.history-item{padding:12px 0;border-top:1px solid var(--line)}.history-item:first-child{border-top:0}.hidden{display:none!important}.smallbtn{padding:8px 10px;font-size:12px}.footer{text-align:center;color:var(--muted);font-size:11px;padding:10px 8px 20px}
+#dayTabs{flex-wrap:wrap}#dayTabs .tab{flex:1 1 28%;min-width:0;font-size:13px}@media(min-width:620px){#dayTabs .tab{flex:1}.two{display:grid;grid-template-columns:1fr 1fr;gap:13px}.two .card{margin-bottom:0}.clock{font-size:76px}}
+</style>
+</head>
+<body>
+<header><small>STRENGTH FOR LIFE · OFFLINE</small><h1>HIT KAT</h1><p>Сила — не наказание. Это образ жизни.</p></header>
+<main>
+  <div class="tabs" id="dayTabs">
+    <button class="tab active" data-day="mon">Пн · Ноги</button><button class="tab" data-day="wed">Ср · Всё тело</button><button class="tab" data-day="fri">Пт · Ноги</button><button class="tab" data-day="beach">Пляж · без инв.</button><button class="tab" data-day="park">Площадка · скамейка</button>
+  </div>
+  <section id="workoutView">
+    <div class="card">
+      <div class="row between"><div><h2 id="workoutTitle">Понедельник — ягодицы и ноги</h2><div class="muted" id="workoutSubtitle">45 сек работа · 15 сек переход · 2 круга</div></div><span class="tag" id="workoutTag">30–35 мин</span></div>
+      <p class="muted">В облегчённом режиме используются отдельные, примерно на 35% меньшие веса (округлены до ближайших 5 lb, минимум 5 lb); их можно менять независимо от обычных. Стартовые ориентиры указаны в lb. Гантели — вес одной гантели; штанга — общий вес вместе с грифом; тренажёры — значение на стеке, если он размечен. Подстрой под себя и сохраняй фактический рабочий вес.</p>
+      <div class="row" style="margin-top:12px;gap:8px"><div class="field"><label>Режим</label><select id="mode"><option value="A">A · Полная тренировка</option><option value="B">B · Облегчённая</option><option value="C">C · Восстановление</option></select></div><div class="field"><label>Дата тренировки</label><input id="sessionDate" type="date"></div></div>
+    </div>
+    <div id="exerciseList" class="card"></div>
+    <div class="card">
+      <h2>Таймер</h2><p class="muted">Звуковые сигналы включаются после нажатия «Старт». Для надёжности оставь приложение открытым во время тренировки.</p>
+      <div class="timer">
+        <div class="phase" id="timerPhase">РАЗМИНКА И ПОДГОТОВКА</div><div class="clock" id="clock">02:00</div><div class="sub" id="timerExercise">Подготовься к тренировке</div><div class="sub" id="timerNext">Следующее: Ягодичный мост со штангой</div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <div class="timer-actions"><button id="startBtn">Старт</button><button class="secondary" id="pauseBtn">Пауза</button><button class="ghost" id="skipBtn">Далее →</button><button class="ghost" id="resetBtn">Сброс</button></div>
+      </div>
+      <div class="row" style="margin-top:12px;gap:8px"><div class="field"><label>Работа (сек)</label><input id="workSeconds" type="number" min="10" max="180" value="45"></div><div class="field"><label>Переход (сек)</label><input id="restSeconds" type="number" min="5" max="90" value="15"></div><div class="field"><label>Круги</label><select id="rounds"><option value="2">2</option><option value="1">1</option></select></div></div>
+    </div>
+    <div class="row" style="gap:8px;margin-bottom:13px"><button id="saveBtn" style="flex:1">Сохранить тренировку</button><button id="finishBtn" class="secondary">Завершить</button></div>
+    <div class="notice">Если сегодня выраженная усталость или головная боль, выбери облегчённый режим или восстановление. Не нужно выполнять тренировку через плохое самочувствие.</div>
+  </section>
+  <section id="historyView" class="hidden">
+    <div class="card"><div class="row between"><h2>История тренировок</h2><button class="ghost smallbtn" id="exportBtn">Экспорт данных</button></div><p class="muted">Данные хранятся локально в браузере этого iPhone. Экспортируй резервную копию время от времени.</p><div id="historyList"></div><button class="danger" id="clearHistoryBtn">Удалить историю</button></div>
+    <div class="card"><h2>Резервная копия</h2><p class="muted">Можно сохранить файл с историей и рабочими весами. Импорт файла доступен ниже.</p><input type="file" id="importFile" accept="application/json"><button class="secondary" id="importBtn" style="margin-top:10px">Импортировать копию</button></div>
+  </section>
+  <section id="progressView" class="hidden">
+    <div class="card"><h2>Рабочие веса</h2><p class="muted">Последний сохранённый вес для каждого упражнения. Сравнивай только одинаковые варианты упражнения и оборудования.</p><div id="weightsList"></div></div>
+  </section>
+  <div class="tabs"><button class="tab active" data-view="workoutView">Тренировка</button><button class="tab" data-view="historyView">История</button><button class="tab" data-view="progressView">Веса</button></div>
+  <div class="footer">Версия 2.1 · Офлайн после открытия в Safari. Не открывай в быстром предпросмотре приложения «Файлы» — там JavaScript может быть отключён. Данные сохраняются в Safari на этом устройстве; используй «Экспорт данных» для резервной копии.</div>
+</main>
+<script>
+const routines={
+mon:{title:"Понедельник — ягодицы и ноги",items:[
+["Ягодичный мост со штангой","Сила"],["Румынская тяга с гантелями","Сила"],["Болгарские выпады — левая нога","На сторону"],["Болгарские выпады — правая нога","На сторону"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Гоблет-присед","Сила"],["Шаги на платформу — левая нога","На сторону"],["Шаги на платформу — правая нога","На сторону"],["Сгибание ног с резинкой лёжа на скамейке","Задняя поверхность бедра"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell)","Ягодицы"],["Подъёмы на носки","Сила"],["Ягодичный мост с паузой","Контроль"],["Планка","Кор"],["Dead bug","Кор"]]},
+wed:{title:"Среда — всё тело и плечи",items:[
+["Жим гантелей над головой","Плечи"],["Подъёмы гантелей в стороны","Дельты"],["Тяга гантелей в наклоне","Спина"],["Отжимания от опоры / пола","Сила"],["Присед с гантелью","Ноги"],["Румынская тяга с гантелями","Сила"],["Обратные выпады — левая нога","На сторону"],["Обратные выпады — правая нога","На сторону"],["Разведение гантелей в наклоне","Задняя дельта"],["Пуловер с гантелью лёжа на скамейке","Спина"],["Жим гантелей лёжа","Грудь"],["Pallof press — левая сторона","На сторону"],["Pallof press — правая сторона","На сторону"],["Bird dog","Кор"],["Фермерская прогулка","Функциональное"]]},
+fri:{title:"Пятница — ягодицы и ноги",items:[
+["Тяга трап-грифа / классическая","Сила"],["Ягодичный мост со штангой","Сила"],["Обратные выпады — левая нога","На сторону"],["Обратные выпады — правая нога","На сторону"],["Жим ногами","Сила"],["Сгибание ног с резинкой лёжа на скамейке","Задняя поверхность бедра"],["Отведение ноги в сторону с утяжелителем — левая","На сторону"],["Отведение ноги в сторону с утяжелителем — правая","На сторону"],["Раскрытие ракушки лёжа на боку с резинкой (Clamshell)","Ягодицы"],["Шаги на платформу — левая нога","На сторону"],["Шаги на платформу — правая нога","На сторону"],["Подъёмы на носки","Сила"],["Frog pumps","Ягодицы"],["Боковая планка — левая","На сторону"],["Боковая планка — правая","На сторону"]]},
+beach:{title:"Дополнительно — пляж без оборудования",items:[
+["Приседания с собственным весом","Ноги"],["Обратные выпады попеременно","Ноги и ягодицы"],["Отжимания от пола или с колен","Грудь и руки"],["Ягодичный мост на коврике","Ягодицы"],["Подъём ноги лёжа на боку — левая","На сторону"],["Подъём ноги лёжа на боку — правая","На сторону"],["Bird dog","Кор и спина"],["Планка на предплечьях","Кор"]]},
+park:{title:"Дополнительно — детская площадка",items:[
+["Зашагивания на низкую устойчивую ступень — левая","На сторону"],["Зашагивания на низкую устойчивую ступень — правая","На сторону"],["Зашагивания на ступень боком — левая","На сторону"],["Зашагивания на ступень боком — правая","На сторону"],["Отжимания от скамейки","Грудь и руки"],["Приседания с собственным весом","Ноги"],["Выпады вперёд попеременно","Ноги и ягодицы"],["Выпады назад попеременно","Ноги и ягодицы"],["Касания пола в 4 направлениях с бордюра — опорная левая","Баланс и контроль колена"],["Касания пола в 4 направлениях с бордюра — опорная правая","Баланс и контроль колена"],["Подведение прямой ноги к руке через сторону в планке — ноги на скамейке","Кор и плечевой пояс"],["Планка с руками на скамейке","Кор"]]}
+};
+const KEY="myFitnessOffline_v1";
+let db=loadDB(),day="mon",view="workoutView",timer=null,remaining=120,running=false,phase="warmup",idx=0,round=1,sessionStarted=false,nextAt=0,storageOK=true;
+db.lightWeights=db.lightWeights||{};
+const starterWeights={
+"Ягодичный мост со штангой":45,"Румынская тяга с гантелями":15,"Болгарские выпады — левая нога":10,"Болгарские выпады — правая нога":10,"Отведение ноги в сторону с утяжелителем — левая":2,"Отведение ноги в сторону с утяжелителем — правая":2,"Гоблет-присед":15,"Шаги на платформу — левая нога":10,"Шаги на платформу — правая нога":10,"Сгибание ног с резинкой лёжа на скамейке":"резинка","Раскрытие ракушки лёжа на боку с резинкой (Clamshell)":"резинка","Подъёмы на носки":15,
+"Жим гантелей над головой":8,"Подъёмы гантелей в стороны":5,"Тяга гантелей в наклоне":12,"Присед с гантелью":15,"Обратные выпады — левая нога":10,"Обратные выпады — правая нога":10,"Разведение гантелей в наклоне":5,"Пуловер с гантелью лёжа на скамейке":10,"Жим гантелей лёжа":10,"Pallof press — левая сторона":5,"Pallof press — правая сторона":5,"Фермерская прогулка":15,"Тяга трап-грифа / классическая":65,"Жим ногами":45
+};
+function lighterWeight(weight){const n=Number(weight);if(!Number.isFinite(n)||n<=0)return "";if(n<=2)return "2";return String(Math.max(5,Math.round((n*0.65)/5)*5));}
+function seedStarterWeights(){let changed=false;for(const [name,weight] of Object.entries(starterWeights)){if(!db.weights[name] || db.weights[name].weight===undefined || db.weights[name].weight===""){db.weights[name]={...(db.weights[name]||{}),weight:String(weight)};changed=true;}if(!db.lightWeights[name] || db.lightWeights[name].weight===undefined || db.lightWeights[name].weight===""){const bandBased=name==="Сгибание ног с резинкой лёжа на скамейке"||name==="Раскрытие ракушки лёжа на боку с резинкой (Clamshell)";db.lightWeights[name]={weight:bandBased?"лёгкая резинка":lighterWeight(db.weights[name].weight||weight)};changed=true;}}if(changed)persist();}
+seedStarterWeights();
+function loadDB(){try{return JSON.parse(localStorage.getItem(KEY))||{history:[],weights:{}}}catch(e){storageOK=false;return {history:[],weights:{}}}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(db));storageOK=true;return true}catch(e){storageOK=false;alert("Safari не разрешил локальное сохранение. Открой файл именно в Safari, а не в предпросмотре «Файлов». Пока экспортируй резервную копию через вкладку «История».");return false}}
+function dateNow(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+document.getElementById("sessionDate").value=dateNow();
+function currentItems(){return routines[day].items}
+function renderExercises(){
+ const list=document.getElementById("exerciseList"), mode=document.getElementById("mode").value;
+ document.getElementById("workoutTitle").textContent=routines[day].title;
+ document.getElementById("workoutSubtitle").textContent=(day==="beach")?"Без инвентаря · работай на ровной поверхности":(day==="park")?"Нужна устойчивая скамейка или низкий бордюр · проверь устойчивость": "45 сек работа · 15 сек переход · 2 круга";
+ if(mode==="C"){list.innerHTML='<h2>Восстановление</h2><p class="muted">Сегодня можно выбрать отдых, лёгкую прогулку, мягкую подвижность или дыхание. Силовую тренировку пропусти, если самочувствие плохое.</p>';resetTimerDisplay();return}
+ const n=Math.min(mode==="B"?8:15,currentItems().length);
+ document.getElementById("workoutTag").textContent=(day==="beach"||day==="park")?"Дополнительно":"30–35 мин";
+ list.innerHTML=`<h2>Упражнения · ${n} слотов</h2>`+currentItems().slice(0,n).map((it,i)=>{
+ let saved=(mode==="B"?db.lightWeights[it[0]]:db.weights[it[0]])||{},w=saved.weight??((day==="beach"||day==="park")?"собственный вес":"");
+ return `<div class="exercise"><div class="row between"><div class="exercise-name">${i+1}. ${it[0]}</div><span class="tag">${it[1]}</span></div><div class="inputs"><div><label>${mode==="B"?"Облегчённый вес / сопротивление":"Вес / сопротивление"}</label><input data-i="${i}" data-k="weight" inputmode="decimal" placeholder="—" value="${w}"></div></div></div>`
+ }).join("");
+ list.querySelectorAll("input").forEach(el=>el.addEventListener("change",()=>{let name=currentItems()[Number(el.dataset.i)][0],target=mode==="B"?db.lightWeights:db.weights;target[name]=target[name]||{};target[name][el.dataset.k]=el.value;persist();renderWeights()}));
+ resetTimerDisplay();
+}
+function getSlots(){return currentItems().slice(0,document.getElementById("mode").value==="B"?8:15)}
+function fmt(n){return `${String(Math.floor(n/60)).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`}
+function beep(freq=880,dur=.12){try{let C=window.AudioContext||window.webkitAudioContext;if(!C)return;let c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.connect(g);g.connect(c.destination);g.gain.value=.12;o.start();o.stop(c.currentTime+dur);o.onended=()=>c.close()}catch(e){}}
+function durationForPhase(){if(phase==="warmup")return 120;if(phase==="rest")return Number(document.getElementById("restSeconds").value)||15;return Number(document.getElementById("workSeconds").value)||45}
+function resetTimerDisplay(){running=false;clearInterval(timer);timer=null;nextAt=0;remaining=120;phase="warmup";idx=0;round=1;updateTimer()}
+function updateTimer(){
+ const slots=getSlots(),totalRounds=Number(document.getElementById("rounds").value)||2;
+ document.getElementById("clock").textContent=fmt(Math.max(0,remaining));
+ const exerciseEl=document.getElementById("timerExercise"),nextEl=document.getElementById("timerNext"),phaseEl=document.getElementById("timerPhase");
+ if(phase==="warmup") {phaseEl.textContent="РАЗМИНКА И ПОДГОТОВКА";exerciseEl.textContent="Разогрейся и подготовь инвентарь";nextEl.textContent=slots.length?`Следующее упражнение: ${slots[0][0]}`:"Выбери тренировочный режим";}
+ else if(phase==="work") {phaseEl.textContent=`РАБОТА · КРУГ ${round} ИЗ ${totalRounds}`;exerciseEl.textContent=slots[idx]?`Сейчас: ${slots[idx][0]}`:"Тренировка завершена";let nextName=idx+1<slots.length?slots[idx+1][0]:(round<totalRounds?slots[0]?.[0]:null);nextEl.textContent=nextName?`После отдыха: ${nextName}`:"Последнее упражнение этого занятия";}
+ else if(phase==="rest") {phaseEl.textContent="ПЕРЕРЫВ / ПОДГОТОВКА";exerciseEl.textContent=slots[idx]?`Отдых после: ${slots[idx][0]}`:"Перерыв";let nextName=idx+1<slots.length?slots[idx+1][0]:(round<totalRounds?slots[0]?.[0]:null);nextEl.textContent=nextName?`СЛЕДУЮЩЕЕ УПРАЖНЕНИЕ: ${nextName}`:"Это последний перерыв — затем конец тренировки";}
+ else if(phase==="done") {phaseEl.textContent="ТРЕНИРОВКА ЗАВЕРШЕНА";exerciseEl.textContent="Отличная работа!";nextEl.textContent="Сохрани результаты тренировки.";}
+ else if(phase==="paused") {phaseEl.textContent="ПАУЗА";exerciseEl.textContent="Таймер приостановлен";nextEl.textContent="Нажми «Старт», чтобы продолжить.";}
+ const duration=Math.max(1,durationForPhase());document.getElementById("progressBar").style.width=`${phase==="done"?100:Math.min(100,Math.max(0,100*(1-remaining/duration)))}%`;
+}
+function advancePhase(){
+ const slots=getSlots(),totalRounds=Number(document.getElementById("rounds").value)||2;
+ if(phase==="warmup"){phase="work";idx=0;round=1;remaining=durationForPhase();beep(880,.15)}
+ else if(phase==="work"){phase="rest";remaining=durationForPhase();beep(660,.12)}
+ else if(phase==="rest"){
+   idx++;
+   if(idx>=slots.length){idx=0;round++;if(round>totalRounds){phase="done";remaining=0;running=false;clearInterval(timer);timer=null;nextAt=0;beep(1040,.25);setTimeout(()=>beep(1320,.25),300);updateTimer();return}}
+   phase="work";remaining=durationForPhase();beep(880,.12);
+ }
+ if(running)nextAt=Date.now()+remaining*1000;
+ updateTimer();
+}
+function timerTick(){if(!running)return;remaining=Math.max(0,Math.ceil((nextAt-Date.now())/1000));if(remaining<=0){advancePhase();return}if(remaining<=3)beep(500,.05);updateTimer()}
+function startTimer(){if(running)return;if(phase==="done")resetTimerDisplay();if(phase==="paused")phase=window._pausedPhase||"warmup";running=true;sessionStarted=true;beep(880,.08);nextAt=Date.now()+remaining*1000;clearInterval(timer);timer=setInterval(timerTick,200);updateTimer()}
+document.getElementById("startBtn").onclick=startTimer;
+document.getElementById("pauseBtn").onclick=()=>{if(running){remaining=Math.max(0,Math.ceil((nextAt-Date.now())/1000));window._pausedPhase=phase;running=false;clearInterval(timer);timer=null;nextAt=0;phase="paused";updateTimer()}};
+document.getElementById("skipBtn").onclick=()=>{
+ if(phase==="done"){resetTimerDisplay();return}
+ const wasRunning=running;
+ if(phase==="paused")phase=window._pausedPhase||"warmup";
+ advancePhase();
+ if(wasRunning&&phase!=="done"){running=true;nextAt=Date.now()+remaining*1000;clearInterval(timer);timer=setInterval(timerTick,200)}else{running=false;clearInterval(timer);timer=null;nextAt=0}
+ updateTimer();
+};
+document.getElementById("resetBtn").onclick=resetTimerDisplay;
+["workSeconds","restSeconds","rounds","mode"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{if(id==="mode")renderExercises();else resetTimerDisplay()}));
+document.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{day=b.dataset.day;document.querySelectorAll("[data-day]").forEach(x=>x.classList.toggle("active",x===b));renderExercises()});
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+function showView(v){view=v;["workoutView","historyView","progressView"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==v));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===v));if(v==="historyView")renderHistory();if(v==="progressView")renderWeights()}
+function captureSession(status){let mode=document.getElementById("mode").value;let records={};document.querySelectorAll("#exerciseList .exercise").forEach((el,i)=>{let name=currentItems()[i][0],o={};el.querySelectorAll("input[data-k=\"weight\"]").forEach(inp=>o.weight=inp.value);records[name]=o;(mode==="B"?db.lightWeights:db.weights)[name]=o});let entry={id:Date.now(),date:document.getElementById("sessionDate").value||dateNow(),day,title:routines[day].title,mode,status,records,rounds:Number(document.getElementById("rounds").value),work:Number(document.getElementById("workSeconds").value),rest:Number(document.getElementById("restSeconds").value)};db.history.unshift(entry);persist();renderHistory();renderWeights();return entry}
+document.getElementById("saveBtn").onclick=()=>{captureSession("Сохранена");alert("Тренировка и веса сохранены на этом устройстве.")};
+document.getElementById("finishBtn").onclick=()=>{captureSession("Завершена");alert("Тренировка добавлена в историю.");showView("historyView")};
+function renderHistory(){let el=document.getElementById("historyList");if(!db.history.length){el.innerHTML='<p class="muted">Пока нет сохранённых тренировок. После занятия нажми «Сохранить тренировку».</p>';return}el.innerHTML=db.history.map(h=>`<div class="history-item"><div class="row between"><div><strong>${h.title}</strong><div class="muted">${h.date} · ${h.mode} · ${h.status}</div></div><button class="danger smallbtn" data-del="${h.id}">Удалить</button></div><details style="margin-top:8px"><summary class="muted">Посмотреть записи</summary>${Object.entries(h.records||{}).map(([n,r])=>`<p class="muted">${n}: вес ${r.weight||"—"}</p>`).join("")}</details></div>`).join("");el.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{db.history=db.history.filter(h=>h.id!==Number(b.dataset.del));persist();renderHistory()})}
+function renderWeights(){let el=document.getElementById("weightsList"),entries=Object.entries(db.weights).filter(([n,v])=>v&&Object.values(v).some(x=>x));if(!entries.length){el.innerHTML='<p class="muted">Веса появятся здесь после ввода и сохранения.</p>';return}el.innerHTML=entries.map(([n,v])=>`<div class="history-item"><strong>${n}</strong><div class="muted">Вес: ${v.weight||"—"}</div></div>`).join("")}
+document.getElementById("exportBtn").onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="my-fitness-backup.json";a.click();URL.revokeObjectURL(url)};
+document.getElementById("importBtn").onclick=()=>{let f=document.getElementById("importFile").files[0];if(!f){alert("Сначала выбери файл резервной копии.");return}let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!d.history||!d.weights)throw Error();db=d;persist();renderHistory();renderWeights();renderExercises();alert("Данные импортированы.")}catch(e){alert("Не удалось прочитать этот файл.")}};r.readAsText(f)};
+document.getElementById("clearHistoryBtn").onclick=()=>{if(confirm("Удалить всю историю тренировок? Это действие нельзя отменить.")){db.history=[];persist();renderHistory()}};
+renderExercises();renderWeights();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body>
+</html>
