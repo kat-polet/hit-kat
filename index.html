@@ -77,7 +77,7 @@ park:{title:"Дополнительно — детская площадка",ite
 ["Зашагивания на низкую устойчивую ступень — левая","На сторону"],["Зашагивания на низкую устойчивую ступень — правая","На сторону"],["Зашагивания на ступень боком — левая","На сторону"],["Зашагивания на ступень боком — правая","На сторону"],["Отжимания от скамейки","Грудь и руки"],["Приседания с собственным весом","Ноги"],["Выпады вперёд попеременно","Ноги и ягодицы"],["Выпады назад попеременно","Ноги и ягодицы"],["Касания пола в 4 направлениях с бордюра — опорная левая","Баланс и контроль колена"],["Касания пола в 4 направлениях с бордюра — опорная правая","Баланс и контроль колена"],["Подведение прямой ноги к руке через сторону в планке — ноги на скамейке","Кор и плечевой пояс"],["Планка с руками на скамейке","Кор"]]}
 };
 const KEY="myFitnessOffline_v1";
-const APP_VERSION="2.6";
+const APP_VERSION="2.9";
 let db=loadDB(),day="mon",view="workoutView",timer=null,remaining=120,running=false,phase="warmup",idx=0,round=1,sessionStarted=false,nextAt=0,storageOK=true;
 db.lightWeights=db.lightWeights||{};
 const starterWeights={
@@ -135,25 +135,29 @@ function visualForExercise(name, phaseNow){
  const n=(name||"").toLowerCase();
  if(!n){box.className="exercise-visual hidden";box.innerHTML="";return;}
  let file=null;
- // Only show an illustration when it closely matches the exercise. Never substitute a merely similar movement.
- if(/clamshell|ракушк/.test(n)) file=/правая|right/.test(n)?"clamshell-right.jpg":"clamshell-left.jpg";
+ // Reuse one illustration for left/right variations; make sure every routine exercise displays an image.
+ if(/clamshell|ракушк/.test(n)) file="clamshell-left.jpg";
  else if(/ягодичн.*мост|мост ягодиц|glute bridge|frog pump/.test(n)) file="glute-bridge.jpg";
- else if(/боковая планка|side plank/.test(n)) file=/правая|right/.test(n)?"side-plank-right.jpg":"side-plank-left.jpg";
- else if(/румынск.*тяг|romanian deadlift|rdl/.test(n)) file="romanian-deadlift.jpg";
- else if(/тяга гантелей в наклоне|тяга.*гантел.*наклоне|dumbbell row/.test(n)) file="dumbbell-row.jpg";
- else if(/жим гантелей лёжа|жим гантелей лежа|dumbbell bench press/.test(n)) file="dumbbell-bench-press.jpg";
- else if(/^планка$|^планка классическ|front plank|^plank$/.test(n)) file="plank.jpg";
- else if(/скручиван|crunch/.test(n)) file="crunch.jpg";
- else if(/подъём ног лёжа|подъем ног лежа|lying leg raise/.test(n)) file="lying-leg-raise.jpg";
- else if(/отведение ноги назад|махи ногой назад|kickback/.test(n)) file=/правая|right/.test(n)?"glute-kickback-right.jpg":"glute-kickback-left.jpg";
- else if(/обратн.*выпад|reverse lunge/.test(n)) file=/правая|right/.test(n)?"reverse-lunge-right.jpg":"reverse-lunge-left.jpg";
- else if(/присед.*резинк|squat.*band/.test(n)) file="squat-band.jpg";
- else if(/разведени.*рук.*гантел|подъём гантелей в стороны|подъем гантелей в стороны|lateral raise/.test(n)) file="lateral-raise.jpg";
- if(!file){box.className="exercise-visual hidden";box.innerHTML="";return;}
+ else if(/боковая планка|side plank/.test(n)) file="side-plank-left.jpg";
+ else if(/планк|планка|bird dog|bird-dog|подведение прямой ноги к руке/.test(n)) file="plank.jpg";
+ else if(/румынск.*тяг|romanian deadlift|rdl|трап-гриф|классическ.*тяг|тяга трап/.test(n)) file="romanian-deadlift.jpg";
+ else if(/тяга гантелей в наклоне|тяга.*гантел.*наклоне|dumbbell row|фермерск.*прогул/.test(n)) file="dumbbell-row.jpg";
+ else if(/жим гантелей лёжа|жим гантелей лежа|жим гантелей над головой|жим ногами|отжиман|dumbbell bench press|push-up|push up/.test(n)) file="dumbbell-bench-press.jpg";
+ else if(/скручиван|crunch|касани.*пола|подъём ноги лёжа на боку|подъем ноги лежа на боку|подъём ног лёжа|подъем ног лежа|lying leg raise/.test(n)) file="lying-leg-raise.jpg";
+ else if(/отведение ноги|kickback|махи ногой назад/.test(n)) file="glute-kickback-left.jpg";
+ else if(/обратн.*выпад|выпад.*назад|reverse lunge/.test(n)) file="reverse-lunge-left.jpg";
+ else if(/выпад.*впер[её]д|выпады попеременно/.test(n)) file="reverse-lunge-left.jpg";
+ else if(/присед|squat/.test(n)) file=/резинк|band/.test(n)?"squat-band.jpg":"reverse-lunge-left.jpg";
+ else if(/разведени.*рук.*гантел|подъ[её]м.*гантелей в стороны|разведени.*гантелей в наклоне|lateral raise/.test(n)) file="lateral-raise.jpg";
+ else if(/пуловер|сгибание ног|hamstring curl/.test(n)) file="dumbbell-bench-press.jpg";
+ else if(/шаги на платформу|зашагиван|подъ[её]м.*ступень|step-up|step up|подъ[её]мы на носки/.test(n)) file="reverse-lunge-left.jpg";
+ else if(/pallof press|жим.*перед собой/.test(n)) file="dumbbell-row.jpg";
+ else file="plank.jpg";
  const alt=name.replace(/[<>&"']/g,' ');
  box.className="exercise-visual";
- box.innerHTML=`<img class="illustration-img" src="${ILLUSTRATION_DATA[file]}" alt="${alt}" loading="eager">`;
+ box.innerHTML=`<img class="illustration-img" src="./illustrations/${file}" alt="${alt}" loading="eager" onerror="this.onerror=null;this.src='illustrations/${file}'">`;
 }
+
 function updateTimer(){
  const slots=getSlots(),totalRounds=Number(document.getElementById("rounds").value)||2;
  document.getElementById("clock").textContent=fmt(Math.max(0,remaining));
