@@ -1,5 +1,9 @@
-HIT KAT v2.7
+HIT KAT Fitness — version 3.3
 
-Replace index.html and sw.js in the repository root. Keep manifest.json and icons/. Keep illustrations/ in the repository root with all JPG files.
+1. Unzip the package.
+2. Serve the folder from HTTPS or localhost to enable PWA/offline installation.
+3. On iPhone, open the HTTPS address in Safari and choose Share > Add to Home Screen.
+4. Exercise illustrations are embedded directly in index.html, so image file paths cannot break them and they work offline.
+5. Keep the app open during workouts for reliable timer sounds. Tap Start once to unlock audio.
 
-Changes: removed exercise coaching text from timer image card; images have a larger contained area; only close, exercise-specific matches are shown to avoid misleading substitutions; service-worker cache version bumped to v2.7.
+The app stores weights and history locally in Safari storage. Export a backup from the History tab.

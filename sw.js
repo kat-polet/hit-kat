@@ -1,4 +1,4 @@
-const CACHE_NAME = "hit-kat-v2-9";
+const CACHE_NAME = "hit-kat-v3-3";
 const APP_SHELL = [
   "./",
   "./index.html",
